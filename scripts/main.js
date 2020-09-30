@@ -105,9 +105,8 @@ function displayBooksToPage(library) {
     for (let book in library) {
         // run displayBook() all books in the library
         library[book].displayBook(book);
-        // give each book an index number corresponding with its array index
-        // library[book].index = book;
     }
+    
 }
 
 // function for delete a book
@@ -138,13 +137,13 @@ function markRead() {
 }
 
 // Build a starting library
-addBookToLibrary("La Comida del Campo", "Charo Santiago", 57);
-addBookToLibrary("Surviving Life", "Luther Calvin Riggs", 187);
-addBookToLibrary("No Pregnancy is the Same", "Ashley Espinal Riggs", 132);
-addBookToLibrary("My Birthday", "Alma Lucia Riggs", 1129);
+// addBookToLibrary("La Comida del Campo", "Charo Santiago", 57);
+// addBookToLibrary("Surviving Life", "Luther Calvin Riggs", 187);
+// addBookToLibrary("No Pregnancy is the Same", "Ashley Espinal Riggs", 132);
+// addBookToLibrary("My Birthday", "Alma Lucia Riggs", 1129);
 
 // display starting library on screen 
-displayBooksToPage(myLibrary);
+// displayBooksToPage(myLibrary);
 
 // Allow user to add a new book with a button click
 newBookButton.addEventListener("click", () => {
@@ -159,3 +158,30 @@ newBookButton.addEventListener("click", () => {
     displayBooksToPage(myLibrary);
 })
 
+
+
+
+// Test for localStorage
+if (!localStorage.getItem('library')) {
+    console.log("NO localStorage")
+    populateStorage();
+} else {
+    console.log("localStorage present")
+    displayBooksFromStorage();
+}
+
+// Get values from localStorage
+function displayBooksFromStorage() {
+    var storedLibrary = localStorage.getItem('storedLibrary')
+    displayBooksToPage(storedLibrary);
+}
+
+// Set values to localStorage
+function populateStorage() {
+    localStorage.setItem('storedLibrary', myLibrary);
+    
+    displayBooksFromStorage();
+}
+
+// onchange handler to update the localStorage
+document.onchange = populateStorage;
